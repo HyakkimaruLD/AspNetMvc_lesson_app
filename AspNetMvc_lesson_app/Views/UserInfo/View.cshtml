@@ -1,0 +1,25 @@
+﻿@model UserInfoForms
+@{
+    ViewData["Title"] = Model.Name;
+}
+<div>
+    <h1 class="display-4">Hello @Model.Name</h1>
+    <h3>Email: @Model.Email</h3>
+    <div>ID: @Model.Id</div>
+    <div>ID: @Model.ProfessionId</div>
+    <table class="table table-hover">
+        <tbody>
+            @foreach (var skill in Model.Skills)
+            {
+                <tr>
+                    <td>@skill.Title</td>
+                    <td>@skill.Level</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-area=""
+       asp-controller="UserInfo"
+       asp-action="Index"
+       class="btn btn-outline-success">Return</a>
+</div>

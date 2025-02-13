@@ -1,0 +1,50 @@
+﻿@model SkillForm
+
+@{
+    ViewData["Title"] = "Редагувати навичку";
+}
+
+<div>
+    <h1 class="display-4">@ViewData["Title"]</h1>
+
+    <form method="post" enctype="multipart/form-data" asp-controller="Skill" asp-action="Edit" asp-route-id="@Model.Id">
+        <div class="card">
+            <div class="card-body">
+                @Html.HiddenFor(x => x.Id)
+                <div class="mb-3">
+                    @Html.LabelFor(x => x.Title, new { @class = "form-label" })
+                    @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(x => x.Level, new { @class = "form-label" })
+                    @Html.TextBoxFor(x => x.Level, new { @class = "form-control", type = "number", min = 1, max = 10 })
+                    @Html.ValidationMessageFor(x => x.Level, null, new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(x => x.Color, new { @class = "form-label" })
+                    @Html.TextBoxFor(x => x.Color, new { @class = "form-control", type = "color" })
+                    @Html.ValidationMessageFor(x => x.Color, null, new { @class = "text-danger" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(x => x.Logo, new { @class = "form-label" })
+                    @Html.TextBoxFor(x => x.Logo, new { @class = "form-control", type = "file", accept = "image/*" })
+                    @Html.ValidationMessageFor(x => x.Logo, null, new { @class = "text-danger" })
+                </div>
+                @if (!string.IsNullOrEmpty(Model.ExistingLogoFileName))
+                {
+                    <div class="mb-3">
+                        <label class="form-label">Поточний логотип</label>
+                        <div>
+                            <img src="~/Uploads/@Model.ExistingLogoFileName" alt="Skill Logo" style="max-height: 100px;" />
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" type="submit">Зберегти</button>
+                <a asp-action="Index" class="btn btn-secondary">Повернутися</a>
+            </div>
+        </div>
+    </form>
+</div>

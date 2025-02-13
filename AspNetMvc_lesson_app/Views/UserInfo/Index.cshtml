@@ -1,0 +1,55 @@
+﻿@model List<UserInfo>
+
+@{
+    ViewData["Title"] = "User List";
+}
+
+<div>
+    <h1 class="display-4">@ViewData["Title"]</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Picture</th>
+                <th>Email</th>
+                <th>Description</th>
+                <th>Actions</th>
+                <th>Profession</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>
+                        @if (user.ImageFile != null)
+                        {
+                            <img style="max-width 200px; max-height: 60px;" class="img-thumbnail" src="/Uploads/@user.ImageFile" />
+                        }
+                        @if (user.GalleryFiles != null && user.GalleryFiles.Count > 0)
+                        {
+                            foreach (var galleryItem in user.GalleryFiles)
+                            {
+                                <img style="max-height: 50px; max-height: 50px;" class="img-thumbnail" src="/Uploads/@galleryItem" />
+                            }
+                        }
+                    </td>
+                    <td>@user.Email</td>
+                    <td>@user.Description</td>
+                    <td>@user.Profession</td>
+                    <td>
+                        <a asp-action="View" asp-route-id="@user.Id" class="btn btn-info">View</a>
+                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning">Edit</a>
+                        <form asp-action="Delete" asp-route-id="@user.Id" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Create" class="btn btn-primary">Create New User</a>
+</div>

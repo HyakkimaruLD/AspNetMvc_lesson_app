@@ -1,0 +1,45 @@
+﻿@model List<Skill>
+
+@{
+    ViewData["Title"] = "Список навичок";
+}
+
+<div>
+    <h1 class="display-4">@ViewData["Title"]</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Назва</th>
+                <th>Рівень</th>
+                <th>Колір</th>
+                <th>Логотип</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var skill in Model)
+            {
+                <tr>
+                    <td>@skill.Title</td>
+                    <td>@skill.Level</td>
+                    <td><span style="background-color:@skill.Color; padding: 5px;">&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(skill.LogoFileName))
+                        {
+                            <img src="~/Uploads/@skill.LogoFileName" alt="Skill Logo" style="max-height: 50px;" />
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@skill.Id" class="btn btn-warning">Редагувати</a>
+                        <form asp-action="Delete" asp-route-id="@skill.Id" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Видалити</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Create" class="btn btn-primary">Створити нову навичку</a>
+</div>

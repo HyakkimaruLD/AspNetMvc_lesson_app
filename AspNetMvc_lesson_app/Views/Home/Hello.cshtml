@@ -1,0 +1,33 @@
+﻿@using AspNetMvc_lesson_app.Controllers
+@{
+    ViewData["Title"] = "Hello Page";
+
+    var skills = ViewBag.Skills as List<Skill>;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome @ViewData["name"]</h1>
+
+    @if((bool)ViewData["showText"])
+    {
+        <p>Show text</p>
+    }
+    else
+    {
+        <p>Hide text</p>
+    }
+
+    <table class="table table-hover">
+        <tbody>
+            @foreach(var skill in skills)
+            {
+                <tr>
+                    <td>@skill.Title</td>
+                    <td>@skill.Level</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
